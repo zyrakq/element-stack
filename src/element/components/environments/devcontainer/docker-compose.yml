@@ -1,0 +1,8 @@
+services:
+  element:
+    networks:
+      - element-workspace-network
+
+networks:
+  element-workspace-network:
+    external: true
