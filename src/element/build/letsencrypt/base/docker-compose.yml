@@ -11,12 +11,12 @@ services:
       LETSENCRYPT_HOST: ${LETSENCRYPT_HOST}
       LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
     configs:
-      - source: app-config
+      - source: element-config
         target: /app/config.json
     networks:
       - letsencrypt-network
 configs:
-  app-config:
+  element-config:
     content: |-
       {
         "default_server_name": "${MATRIX_DOMAIN}",

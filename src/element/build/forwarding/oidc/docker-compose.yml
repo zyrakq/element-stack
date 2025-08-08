@@ -6,12 +6,12 @@ services:
     environment:
       TZ: ${MATRIX_TZ}
     configs:
-      - source: app-config
+      - source: element-config
         target: /app/config.json
     ports:
       - "3000:80"
 configs:
-  app-config:
+  element-config:
     content: |-
       {
         "default_server_name": "${MATRIX_DOMAIN}",
