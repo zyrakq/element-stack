@@ -37,6 +37,11 @@ Modern identity and access management server with comprehensive authentication c
 Matrix homeserver implementation providing the backend infrastructure for Element Web client. Includes PostgreSQL backend, OIDC integration, and multiple deployment configurations.
 [Learn more about Matrix Synapse configuration](src/matrix/synapse/README.md).
 
+#### [⚡ Conduit](src/matrix/conduit)
+
+Lightweight Matrix homeserver implementation written in Rust. Provides fast and resource-efficient Matrix backend with simplified deployment and configuration options.
+[Learn more about Matrix Conduit configuration](src/matrix/conduit/README.md).
+
 ## 🌐 Services
 
 ### 🌐 [Element Web](src/element/)
@@ -59,7 +64,8 @@ Each component has its own README with detailed setup instructions. Choose the c
    - Modern: Use Kanidm
 
 3. **Deploy Matrix Backend:**
-   - Set up Synapse homeserver
+   - Set up Synapse homeserver (full-featured)
+   - Or use Conduit homeserver (lightweight)
 
 4. **Deploy Element Web:**
    - Configure Element client to connect to your Matrix homeserver
@@ -68,10 +74,10 @@ Each component has its own README with detailed setup instructions. Choose the c
 
 ```sh
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   Element Web   │────│  Matrix Synapse │────│   PostgreSQL    │
-│   (Frontend)    │    │   (Homeserver)  │    │   (Database)    │
-└─────────────────┘    └─────────────────┘    └─────────────────┘
-         │                       │
+│   Element Web   │────│  Matrix Server  │────│   Database      │
+│   (Frontend)    │    │ (Synapse/       │    │ (PostgreSQL/    │
+└─────────────────┘    │  Conduit)       │    │  SQLite)        │
+         │              └─────────────────┘    └─────────────────┘
          │                       │
 ┌─────────────────┐    ┌─────────────────┐
 │ Identity Server │    │  SSL Manager    │
@@ -108,6 +114,10 @@ docker-compose up -d
 # Synapse with port forwarding
 cd src/matrix/synapse/build/forwarding/base/
 docker-compose up -d
+
+# Conduit with port forwarding
+cd src/matrix/conduit/build/forwarding/base/
+docker-compose up -d
 ```
 
 ### Production Environment
@@ -120,6 +130,10 @@ docker-compose up -d
 # Synapse with Let's Encrypt SSL and OIDC
 cd src/matrix/synapse/build/letsencrypt/oidc/
 docker-compose up -d
+
+# Conduit with Let's Encrypt SSL
+cd src/matrix/conduit/build/letsencrypt/base/
+docker-compose up -d
 ```
 
 ### DevContainer Environment
@@ -131,6 +145,10 @@ docker-compose up -d
 
 # Synapse in DevContainer with OIDC
 cd src/matrix/synapse/build/devcontainer/oidc/
+docker-compose up -d
+
+# Conduit in DevContainer
+cd src/matrix/conduit/build/devcontainer/base/
 docker-compose up -d
 ```
 

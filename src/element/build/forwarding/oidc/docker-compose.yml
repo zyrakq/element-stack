@@ -5,6 +5,11 @@ services:
     restart: unless-stopped
     environment:
       TZ: ${MATRIX_TZ}
+    logging:
+      driver: "json-file"
+      options:
+        max-size: 10m
+        max-file: 3
     configs:
       - source: element-config
         target: /app/config.json
