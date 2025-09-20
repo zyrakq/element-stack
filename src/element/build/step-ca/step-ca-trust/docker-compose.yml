@@ -5,6 +5,13 @@ services:
     restart: unless-stopped
     environment:
       TZ: ${MATRIX_TZ}
+      SYNAPSE_SERVER_NAME: ${SYNAPSE_SERVER_NAME}
+      VIRTUAL_PORT: ${VIRTUAL_PORT:-80}
+      VIRTUAL_HOST: ${VIRTUAL_HOST}
+      LETSENCRYPT_HOST: ${LETSENCRYPT_HOST}
+      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
+      STEP_CA_TRUST: ${STEP_CA_TRUST:-true}
+      STEP_CA_TRUST_RESTART: ${STEP_CA_TRUST_RESTART:-true}
     logging:
       driver: "json-file"
       options:
@@ -13,8 +20,8 @@ services:
     configs:
       - source: element-config
         target: /app/config.json
-    ports:
-      - "3000:80"
+    networks:
+      - step-ca-network
 configs:
   element-config:
     content: |-
@@ -61,3 +68,6 @@ configs:
         },
         "map_style_url": "https://api.maptiler.com/maps/streets/style.json?key=fU3vlMsMn4Jb6dnEIFsx"
       }
+networks:
+  step-ca-network:
+    external: true

@@ -10,6 +10,8 @@ services:
       VIRTUAL_HOST: ${VIRTUAL_HOST}
       LETSENCRYPT_HOST: ${LETSENCRYPT_HOST}
       LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
+      STEP_CA_TRUST: ${STEP_CA_TRUST:-true}
+      STEP_CA_TRUST_RESTART: ${STEP_CA_TRUST_RESTART:-true}
     logging:
       driver: "json-file"
       options:
@@ -28,9 +30,6 @@ configs:
         "default_server_config": {
           "m.homeserver": {
             "base_url": "https://${MATRIX_DOMAIN}"
-          },
-          "m.identity_server": {
-            "base_url": "${IDENTITY_SERVER_URL}"
           }
         },
         "brand": "Element",
